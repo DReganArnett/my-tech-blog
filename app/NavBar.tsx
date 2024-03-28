@@ -1,10 +1,15 @@
+'use client'
+
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image'
 import Logo from './assets/logo-laptop.png'
+import { usePathname } from 'next/navigation';
+import classnames from 'classnames';
 
 const NavBar = () => {
-
+    const currentPath = usePathname();
+   
     const links = [
         {label: 'Home', href: '/'},
         {label: 'Posts', href: '/posts'},
@@ -18,7 +23,11 @@ const NavBar = () => {
                     {links.map(link => 
                         <Link  
                             key={link.href}
-                            className='flex space-x-6 items-center text-zinc-500 hover:text-zinc-800'
+                            className={classnames({
+                                'text-zinc-900' : link.href === currentPath,
+                                'text-zinc-500' : link.href !== currentPath,
+                                'hover:text-zinc-800 transition-colors' : true
+                            })}
                             href={link.href}
                             >
                                 {link.label}
